@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import { useToast } from '@/context/ToastContext';
+import Link from 'next/link';
 
 interface UserItem {
   id: string;
