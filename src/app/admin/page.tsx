@@ -38,6 +38,7 @@ export default function AdminDashboard() {
         <div style={{ display: 'flex', gap: '20px', marginBottom: '30px', borderBottom: '1px solid var(--border)' }}>
           <Link href="/admin" style={{ padding: '10px 0', borderBottom: '3px solid var(--primary)', fontWeight: 700, color: 'var(--primary)' }}>Deals Management</Link>
           <Link href="/admin/users" style={{ padding: '10px 0', fontWeight: 600, color: 'var(--text-muted)' }}>User Management</Link>
+          <Link href="/admin/founders" style={{ padding: '10px 0', fontWeight: 600, color: 'var(--text-muted)' }}>Founder Profiles</Link>
         </div>
 
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>

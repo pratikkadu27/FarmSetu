@@ -79,6 +79,11 @@ export default function UserManagementPage() {
         </header>
 
         <div className="card" style={{ padding: '0', overflow: 'hidden' }}>
+          <div style={{ display: 'flex', gap: '20px', padding: '0 16px', borderBottom: '1px solid var(--border)' }}>
+            <Link href="/admin" style={{ padding: '10px 0', fontWeight: 600, color: 'var(--text-muted)' }}>Deals Management</Link>
+            <Link href="/admin/users" style={{ padding: '10px 0', borderBottom: '3px solid var(--primary)', fontWeight: 700, color: 'var(--primary)' }}>User Management</Link>
+            <Link href="/admin/founders" style={{ padding: '10px 0', fontWeight: 600, color: 'var(--text-muted)' }}>Founder Profiles</Link>
+          </div>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ backgroundColor: '#F0F4F1', borderBottom: '1px solid var(--border)' }}>
