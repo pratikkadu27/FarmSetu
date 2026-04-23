@@ -33,17 +33,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = async (email: string, password: string) => {
-    // Simple mock logic
-    if (email === 'admin@farmsetu.com' && password === 'admin123') {
-      const adminUser: User = { id: 'admin-1', name: 'Admin User', email, role: 'admin', status: 'active' };
-      setUser(adminUser);
-      localStorage.setItem('fs_user', JSON.stringify(adminUser));
-    } else if (email === 'user@farmsetu.com' && password === 'user123') {
-      const normalUser: User = { id: 'user-1', name: 'John Doe', email, role: 'user', status: 'active' };
-      setUser(normalUser);
-      localStorage.setItem('fs_user', JSON.stringify(normalUser));
-    } else {
-      throw new Error('Invalid credentials');
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Login failed');
+      }
+
+      const loggedInUser: User = data;
+      setUser(loggedInUser);
+      localStorage.setItem('fs_user', JSON.stringify(loggedInUser));
+    } catch (error: any) {
+      throw error;
     }
   };
 

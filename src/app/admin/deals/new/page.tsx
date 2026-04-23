@@ -58,7 +58,6 @@ export default function NewDealPage() {
 
   return (
     <>
-      <Navbar />
       <main className="container" style={{ paddingTop: '30px', paddingBottom: '40px' }}>
         <button 
           onClick={() => router.back()} 

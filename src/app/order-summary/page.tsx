@@ -6,7 +6,6 @@ import Navbar from '@/components/Navbar';
 export default function OrderSummaryPage() {
   return (
     <>
-      <Navbar />
       <main className="container" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
         <div className="card" style={{ textAlign: 'center', padding: '40px 20px' }}>
           <div style={{ fontSize: '4rem', marginBottom: '20px' }}>✅</div>

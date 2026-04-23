@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -39,7 +41,11 @@ export default function RootLayout({
         <AuthProvider>
           <DealProvider>
             <ToastProvider>
-              {children}
+              <Navbar />
+              <div style={{ minHeight: 'calc(100vh - 300px)' }}>
+                {children}
+              </div>
+              <Footer />
             </ToastProvider>
           </DealProvider>
         </AuthProvider>

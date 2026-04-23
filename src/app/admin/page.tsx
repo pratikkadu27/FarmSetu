@@ -34,7 +34,6 @@ export default function AdminDashboard() {
 
   return (
     <>
-      <Navbar />
       <main className="container" style={{ paddingTop: '30px', paddingBottom: '40px' }}>
         <div style={{ display: 'flex', gap: '20px', marginBottom: '30px', borderBottom: '1px solid var(--border)' }}>
           <Link href="/admin" style={{ padding: '10px 0', borderBottom: '3px solid var(--primary)', fontWeight: 700, color: 'var(--primary)' }}>Deals Management</Link>
@@ -106,7 +105,7 @@ export default function AdminDashboard() {
                   
                   <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between' }}>
                     <span className="text-sm text-muted">Delivery: {new Date(deal.deliveryDate).toLocaleDateString()}</span>
-                    <button style={{ color: 'var(--primary)', fontWeight: 600, fontSize: '0.875rem' }}>View Buyers →</button>
+                    <Link href={`/admin/deals/${deal._id}/buyers`} style={{ color: 'var(--primary)', fontWeight: 600, fontSize: '0.875rem' }}>View Buyers →</Link>
                   </div>
                 </div>
               ))

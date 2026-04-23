@@ -42,20 +42,38 @@ export default function DealDetailsPage() {
     }
 
     setIsBooking(true);
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          dealId: deal._id,
+          userId: user.id || (user as any)._id,
+          userName: user.name,
+          userEmail: user.email,
+          userCity: (user as any).city || 'Unknown',
+          quantity,
+          totalAmount: deal.pricePerUnit * quantity
+        }),
+      });
+
+      if (!response.ok) throw new Error('Order failed');
+
       if (deal._id) {
         updateDeal(deal._id, { bookedQuantity: deal.bookedQuantity + quantity });
       }
-      setIsBooking(false);
+      
       showToast(`Successfully booked ${quantity} ${deal.unit} of ${deal.name}!`, "success");
       router.push('/dashboard');
-    }, 1500);
+    } catch (err) {
+      showToast("Failed to place booking. Please try again.", "error");
+    } finally {
+      setIsBooking(false);
+    }
   };
 
   return (
     <>
-      <Navbar />
       <main className="container" style={{ paddingTop: '20px', paddingBottom: '40px' }}>
         <button 
           onClick={() => router.back()} 

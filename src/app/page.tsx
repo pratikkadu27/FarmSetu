@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import Navbar from "@/components/Navbar";
 import DealCard from "@/components/DealCard";
 import { useDeals } from "@/context/DealContext";
@@ -10,31 +11,63 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
-      <main className="container" style={{ paddingTop: '30px', paddingBottom: '80px' }}>
-        <header style={{ marginBottom: '32px', textAlign: 'center' }}>
-          <h1 style={{ fontSize: '2.5rem', color: 'var(--secondary)', marginBottom: '10px' }}>
+      {/* Hero Section */}
+      <section style={{ 
+        background: 'var(--secondary)', 
+        color: 'white', 
+        padding: '80px 0 60px', 
+        textAlign: 'center',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          opacity: 0.1,
+          backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")',
+          pointerEvents: 'none'
+        }}></div>
+        
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+          <span className="badge" style={{ background: 'var(--primary-light)', color: 'var(--secondary)', marginBottom: '16px' }}>Direct from Farmers</span>
+          <h1 style={{ fontSize: '3.5rem', color: 'white', marginBottom: '20px', letterSpacing: '-1px' }}>
             Fresh Harvest Deals 🌿
           </h1>
-          <p style={{ color: 'var(--text-muted)', maxWidth: '500px', margin: '0 auto' }}>
-            Direct bulk sourcing from local farmers. High quality, lower prices, maximum savings.
+          <p style={{ color: 'rgba(255,255,255,0.8)', maxWidth: '600px', margin: '0 auto 32px', fontSize: '1.1rem' }}>
+            Join community-led group deals to source high-quality produce directly from local farms at wholesale prices.
           </p>
-        </header>
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
+            <Link href="#deals" className="btn btn-primary" style={{ background: 'var(--primary-light)', color: 'var(--secondary)' }}>Explore Deals</Link>
+            <Link href="/how-it-works" className="btn btn-outline" style={{ borderColor: 'white', color: 'white' }}>How it Works</Link>
+          </div>
+        </div>
+      </section>
 
+      <main className="container" style={{ paddingTop: '60px', paddingBottom: '80px' }} id="deals">
         <section>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-            <h2 style={{ fontSize: '1.25rem', margin: 0 }}>Active Group Deals</h2>
-            <span className="badge badge-active">{activeDeals.length} Available</span>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '32px' }}>
+            <div>
+              <h2 style={{ fontSize: '1.75rem', marginBottom: '4px' }}>Active Group Deals</h2>
+              <p className="text-muted text-sm">Real-time opportunities to save on fresh produce</p>
+            </div>
+            <span className="badge badge-active">{activeDeals.length} Available Now</span>
           </div>
 
-          <div style={{ display: 'grid', gap: '20px' }}>
+          <div className="deals-grid">
             {isLoading ? (
-              <div className="card" style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
-                <p>⏳ Loading deals...</p>
-              </div>
+              [1, 2, 3].map(i => (
+                <div key={i} className="card" style={{ height: '320px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.02)' }}>
+                  <p className="text-muted animate-pulse">⏳ Loading...</p>
+                </div>
+              ))
             ) : activeDeals.length === 0 ? (
-              <div className="card" style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
-                <p>🌿 No active deals right now. Check back soon!</p>
+              <div className="card" style={{ gridColumn: '1/-1', textAlign: 'center', padding: '60px', borderStyle: 'dashed' }}>
+                <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🌿</div>
+                <h3>No active deals at the moment</h3>
+                <p className="text-muted">Farmers are preparing their next harvest. Check back soon!</p>
               </div>
             ) : (
               activeDeals.map(deal => (
@@ -44,16 +77,29 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Categories / Benefits */}
-        <section style={{ marginTop: '40px' }}>
-          <div className="card" style={{ backgroundColor: 'var(--primary)', color: 'white', border: 'none' }}>
-            <h3 style={{ color: 'white' }}>How it works?</h3>
-            <ol style={{ paddingLeft: '20px', marginTop: '10px', fontSize: '0.9rem' }}>
-              <li>Browse bulk deals sourced directly from farms.</li>
-              <li>Book your required quantity before the deal closes.</li>
-              <li>Wait for procurement and delivery updates.</li>
-              <li>Get fresh produce at the best prices!</li>
-            </ol>
+        {/* Features / Benefits */}
+        <section style={{ marginTop: '80px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <h2 style={{ fontSize: '2rem' }}>Why Choose FarmSetu?</h2>
+            <p className="text-muted">Bridging the gap between rural farms and urban demand.</p>
+          </div>
+          
+          <div className="deals-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))' }}>
+            <div className="card glass card-hover" style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '15px' }}>🚜</div>
+              <h4>Direct Sourcing</h4>
+              <p className="text-sm text-muted">Eliminate middlemen and get produce straight from the source.</p>
+            </div>
+            <div className="card glass card-hover" style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '15px' }}>💰</div>
+              <h4>Wholesale Prices</h4>
+              <p className="text-sm text-muted">Save up to 40% compared to local retail market prices.</p>
+            </div>
+            <div className="card glass card-hover" style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '15px' }}>🌱</div>
+              <h4>Verified Quality</h4>
+              <p className="text-sm text-muted">Every harvest is inspected to ensure premium quality standards.</p>
+            </div>
           </div>
         </section>
       </main>

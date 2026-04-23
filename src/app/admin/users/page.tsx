@@ -19,30 +19,59 @@ export default function UserManagementPage() {
   const { showToast } = useToast();
   const router = useRouter();
 
-  const [users, setUsers] = useState<UserItem[]>([
-    { id: '1', name: 'Sarah Jenkins', email: 'sarah@example.com', status: 'pending', city: 'Mumbai' },
-    { id: '2', name: 'Michael Chen', email: 'mike@example.com', status: 'active', city: 'Pune' },
-    { id: '3', name: 'Almas Khan', email: 'almas@example.com', status: 'pending', city: 'Delhi' },
-  ]);
+  const [users, setUsers] = useState<UserItem[]>([]);
+  const [dataLoading, setDataLoading] = useState(true);
 
   useEffect(() => {
     if (!authLoading && (!user || user.role !== 'admin')) {
       router.push('/login');
+    } else if (user?.role === 'admin') {
+      fetchUsers();
     }
   }, [user, authLoading, router]);
 
-  if (authLoading || !user || user.role !== 'admin') {
+  const fetchUsers = async () => {
+    try {
+      const res = await fetch('/api/admin/users');
+      const data = await res.json();
+      if (res.ok) {
+        // Map _id from MongoDB to id for frontend
+        const mappedUsers = data.map((u: any) => ({
+          ...u,
+          id: u._id
+        }));
+        setUsers(mappedUsers);
+      }
+    } catch (err) {
+      showToast('Failed to load users', 'error');
+    } finally {
+      setDataLoading(false);
+    }
+  };
+
+  if (authLoading || !user || user.role !== 'admin' || dataLoading) {
     return <div className="container" style={{ padding: '40px', textAlign: 'center' }}>Loading user data...</div>;
   }
 
-  const handleStatusChange = (id: string, newStatus: 'active' | 'suspended') => {
-    setUsers(users.map(u => u.id === id ? { ...u, status: newStatus } : u));
-    showToast(`User ${newStatus === 'active' ? 'approved' : 'suspended'} successfully!`, 'success');
+  const handleStatusChange = async (id: string, newStatus: 'active' | 'suspended') => {
+    try {
+      const res = await fetch('/api/admin/users', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status: newStatus }),
+      });
+
+      if (res.ok) {
+        setUsers(users.map(u => u.id === id || (u as any)._id === id ? { ...u, status: newStatus } : u));
+        showToast(`User ${newStatus === 'active' ? 'approved' : 'suspended'} successfully!`, 'success');
+      }
+    } catch (err) {
+      showToast('Action failed', 'error');
+    }
   };
 
   return (
     <>
-      <Navbar />
       <main className="container" style={{ paddingTop: '30px', paddingBottom: '40px' }}>
         <header style={{ marginBottom: '30px' }}>
           <h1>User Management</h1>
