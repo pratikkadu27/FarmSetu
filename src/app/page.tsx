@@ -1,66 +1,65 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+
+import Navbar from "@/components/Navbar";
+import DealCard from "@/components/DealCard";
+import { useDeals } from "@/context/DealContext";
 
 export default function Home() {
+  const { deals } = useDeals();
+  const activeDeals = deals.filter(d => d.status === 'active');
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <Navbar />
+      <main className="container" style={{ paddingTop: '30px', paddingBottom: '80px' }}>
+        <header style={{ marginBottom: '32px', textAlign: 'center' }}>
+          <h1 style={{ fontSize: '2.5rem', color: 'var(--secondary)', marginBottom: '10px' }}>
+            Fresh Harvest Deals 🌿
+          </h1>
+          <p style={{ color: 'var(--text-muted)', maxWidth: '500px', margin: '0 auto' }}>
+            Direct bulk sourcing from local farmers. High quality, lower prices, maximum savings.
           </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+        </header>
+
+        <section>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <h2 style={{ fontSize: '1.25rem', margin: 0 }}>Active Group Deals</h2>
+            <span className="badge badge-active">{activeDeals.length} Available</span>
+          </div>
+
+          <div style={{ display: 'grid', gap: '20px' }}>
+            {activeDeals.map(deal => (
+              <DealCard key={deal.id} deal={deal} />
+            ))}
+          </div>
+        </section>
+
+        {/* Categories / Benefits */}
+        <section style={{ marginTop: '40px' }}>
+          <div className="card" style={{ backgroundColor: 'var(--primary)', color: 'white', border: 'none' }}>
+            <h3 style={{ color: 'white' }}>How it works?</h3>
+            <ol style={{ paddingLeft: '20px', marginTop: '10px', fontSize: '0.9rem' }}>
+              <li>Browse bulk deals sourced directly from farms.</li>
+              <li>Book your required quantity before the deal closes.</li>
+              <li>Wait for procurement and delivery updates.</li>
+              <li>Get fresh produce at the best prices!</li>
+            </ol>
+          </div>
+        </section>
       </main>
-    </div>
+
+      {/* Floating Action for PWA feel on mobile */}
+      <div style={{
+        position: 'fixed',
+        bottom: '20px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: 'calc(100% - 40px)',
+        maxWidth: '560px',
+        display: 'none' /* Will show on mobile if needed */
+      }}>
+        {/* Mobile Navigation or CTA */}
+      </div>
+    </>
   );
 }
