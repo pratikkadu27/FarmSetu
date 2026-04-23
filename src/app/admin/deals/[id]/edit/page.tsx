@@ -18,7 +18,7 @@ export default function EditDealPage() {
   const [formData, setFormData] = useState<Deal | null>(null);
 
   useEffect(() => {
-    const deal = deals.find(d => d.id === id);
+    const deal = deals.find(d => d._id === id);
     if (deal) {
       setFormData(deal);
     }
@@ -34,7 +34,7 @@ export default function EditDealPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formData) {
-      updateDeal(formData.id, formData);
+      updateDeal(formData._id, formData);
       showToast('Deal updated successfully! 🌿', 'success');
       router.push('/admin');
     }

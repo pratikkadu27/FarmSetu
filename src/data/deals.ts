@@ -1,5 +1,6 @@
 export interface Deal {
-  id: string;
+  _id: string;
+  id?: string; // Keep for compatibility
   name: string;
   category: 'fruits' | 'vegetables' | 'grains';
   totalQuantity: number;

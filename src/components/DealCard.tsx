@@ -71,7 +71,7 @@ export default function DealCard({ deal }: DealCardProps) {
         </div>
 
         <Link 
-          href={`/deals/${deal.id}`}
+          href={`/deals/${deal._id}`}
           className={`btn ${isSoldOut ? 'btn-outline' : 'btn-primary'}`}
           style={{ width: '100%' }}
         >

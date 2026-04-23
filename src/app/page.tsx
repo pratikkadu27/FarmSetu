@@ -5,7 +5,7 @@ import DealCard from "@/components/DealCard";
 import { useDeals } from "@/context/DealContext";
 
 export default function Home() {
-  const { deals } = useDeals();
+  const { deals, isLoading } = useDeals();
   const activeDeals = deals.filter(d => d.status === 'active');
 
   return (
@@ -28,9 +28,19 @@ export default function Home() {
           </div>
 
           <div style={{ display: 'grid', gap: '20px' }}>
-            {activeDeals.map(deal => (
-              <DealCard key={deal.id} deal={deal} />
-            ))}
+            {isLoading ? (
+              <div className="card" style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
+                <p>⏳ Loading deals...</p>
+              </div>
+            ) : activeDeals.length === 0 ? (
+              <div className="card" style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
+                <p>🌿 No active deals right now. Check back soon!</p>
+              </div>
+            ) : (
+              activeDeals.map(deal => (
+                <DealCard key={deal._id} deal={deal} />
+              ))
+            )}
           </div>
         </section>
 

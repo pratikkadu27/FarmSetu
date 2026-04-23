@@ -67,17 +67,17 @@ export default function AdminDashboard() {
               </div>
             ) : (
               deals.map(deal => (
-                <div key={deal.id} className="card" style={{ marginBottom: 0, opacity: deal.status === 'closed' ? 0.7 : 1 }}>
+                <div key={deal._id} className="card" style={{ marginBottom: 0, opacity: deal.status === 'closed' ? 0.7 : 1 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
                     <div>
                       <h3 style={{ margin: 0, fontSize: '1.1rem' }}>{deal.name}</h3>
                       <span className="text-muted text-sm">Status: <strong style={{ color: deal.status === 'active' ? 'var(--primary)' : 'var(--danger)' }}>{deal.status.toUpperCase()}</strong></span>
                     </div>
                     <div style={{ display: 'flex', gap: '8px' }}>
-                      <Link href={`/admin/deals/${deal.id}/edit`} className="btn btn-outline" style={{ padding: '6px 12px', fontSize: '0.75rem' }}>Edit</Link>
+                      <Link href={`/admin/deals/${deal._id}/edit`} className="btn btn-outline" style={{ padding: '6px 12px', fontSize: '0.75rem' }}>Edit</Link>
                       {deal.status === 'active' && (
                         <button 
-                          onClick={() => handleFreeze(deal.id)}
+                          onClick={() => handleFreeze(deal._id)}
                           className="btn btn-outline" 
                           style={{ padding: '6px 12px', fontSize: '0.75rem', borderColor: 'var(--danger)', color: 'var(--danger)' }}
                         >
@@ -86,7 +86,7 @@ export default function AdminDashboard() {
                       )}
                       {deal.status === 'closed' && (
                         <button 
-                          onClick={() => updateDeal(deal.id, { status: 'active' })}
+                          onClick={() => updateDeal(deal._id, { status: 'active' })}
                           className="btn btn-outline" 
                           style={{ padding: '6px 12px', fontSize: '0.75rem', borderColor: 'var(--primary)', color: 'var(--primary)' }}
                         >

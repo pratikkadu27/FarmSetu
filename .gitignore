@@ -10,6 +10,15 @@
 !.yarn/releases
 !.yarn/versions
 
+# debug/seed scripts
+test-mongo.js
+find-primary.js
+seed-deals.js
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
 # testing
 /coverage
 

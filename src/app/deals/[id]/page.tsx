@@ -19,7 +19,7 @@ export default function DealDetailsPage() {
   const [isBooking, setIsBooking] = useState(false);
 
   useEffect(() => {
-    const foundDeal = deals.find(d => d.id === id);
+    const foundDeal = deals.find(d => d._id === id);
     if (foundDeal) setDeal(foundDeal);
   }, [id, deals]);
 
@@ -44,7 +44,7 @@ export default function DealDetailsPage() {
     setIsBooking(true);
     // Simulate API call
     setTimeout(() => {
-      updateDeal(deal.id, { bookedQuantity: deal.bookedQuantity + quantity });
+      updateDeal(deal._id, { bookedQuantity: deal.bookedQuantity + quantity });
       setIsBooking(false);
       showToast(`Successfully booked ${quantity} ${deal.unit} of ${deal.name}!`, "success");
       router.push('/dashboard');
