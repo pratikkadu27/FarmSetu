@@ -1,5 +1,5 @@
 export interface Deal {
-  _id: string;
+  _id?: string;
   id?: string; // Keep for compatibility
   name: string;
   category: 'fruits' | 'vegetables' | 'grains';
@@ -18,6 +18,7 @@ export interface Deal {
 
 export const mockDeals: Deal[] = [
   {
+    _id: '1',
     id: '1',
     name: 'Organic Basmati Rice',
     category: 'grains',
@@ -34,6 +35,7 @@ export const mockDeals: Deal[] = [
     image: 'https://images.unsplash.com/photo-1586201375761-83865003e31c?auto=format&fit=crop&q=80&w=400'
   },
   {
+    _id: '2',
     id: '2',
     name: 'Fresh Alphonso Mangoes',
     category: 'fruits',

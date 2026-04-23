@@ -33,7 +33,7 @@ export default function EditDealPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData) {
+    if (formData && formData._id) {
       updateDeal(formData._id, formData);
       showToast('Deal updated successfully! 🌿', 'success');
       router.push('/admin');

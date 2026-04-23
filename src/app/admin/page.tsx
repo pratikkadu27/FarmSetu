@@ -77,7 +77,7 @@ export default function AdminDashboard() {
                       <Link href={`/admin/deals/${deal._id}/edit`} className="btn btn-outline" style={{ padding: '6px 12px', fontSize: '0.75rem' }}>Edit</Link>
                       {deal.status === 'active' && (
                         <button 
-                          onClick={() => handleFreeze(deal._id)}
+                          onClick={() => deal._id && handleFreeze(deal._id)}
                           className="btn btn-outline" 
                           style={{ padding: '6px 12px', fontSize: '0.75rem', borderColor: 'var(--danger)', color: 'var(--danger)' }}
                         >
@@ -86,7 +86,7 @@ export default function AdminDashboard() {
                       )}
                       {deal.status === 'closed' && (
                         <button 
-                          onClick={() => updateDeal(deal._id, { status: 'active' })}
+                          onClick={() => deal._id && updateDeal(deal._id, { status: 'active' })}
                           className="btn btn-outline" 
                           style={{ padding: '6px 12px', fontSize: '0.75rem', borderColor: 'var(--primary)', color: 'var(--primary)' }}
                         >

@@ -44,7 +44,9 @@ export default function DealDetailsPage() {
     setIsBooking(true);
     // Simulate API call
     setTimeout(() => {
-      updateDeal(deal._id, { bookedQuantity: deal.bookedQuantity + quantity });
+      if (deal._id) {
+        updateDeal(deal._id, { bookedQuantity: deal.bookedQuantity + quantity });
+      }
       setIsBooking(false);
       showToast(`Successfully booked ${quantity} ${deal.unit} of ${deal.name}!`, "success");
       router.push('/dashboard');
